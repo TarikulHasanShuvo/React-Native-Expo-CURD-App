@@ -2,7 +2,7 @@
 import * as React from "react";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {API_URL, API_TOKEN} from "@env"
+import {API_URL} from "@env";
 import {
     StyleSheet,
     Text,
@@ -17,31 +17,34 @@ import {
  const  HomeScreen = () => {
 
      useEffect(()=>{
-         console.log(API_URL);
+         getProductFromApi();
      },[])
 
-    const [data,setData] = useState([
-        {id:1, title: "Product 1",  price:"$ 25.00 USD", image:"https://via.placeholder.com/400x200/FFB6C1/000000"},
-        {id:2, title: "Product 2",  price:"$ 10.13 USD", image:"https://via.placeholder.com/400x200/FA8072/000000"} ,
-        {id:3, title: "Product 3",  price:"$ 12.12 USD", image:"https://via.placeholder.com/400x200/87CEEB/000000"},
-        {id:4, title: "Product 4",  price:"$ 11.00 USD", image:"https://via.placeholder.com/400x200/4682B4/000000"},
-        {id:5, title: "Product 5",  price:"$ 20.00 USD", image:"https://via.placeholder.com/400x200/008080/000000"},
-        {id:6, title: "Product 6",  price:"$ 33.00 USD", image:"https://via.placeholder.com/400x200/40E0D0/000000"},
-        {id:7, title: "Product 7",  price:"$ 20.95 USD", image:"https://via.placeholder.com/400x200/EE82EE/000000"},
-        {id:8, title: "Product 8",  price:"$ 13.60 USD", image:"https://via.placeholder.com/400x200/48D1CC/000000"},
-        {id:9, title: "Product 9",  price:"$ 15.30 USD", image:"https://via.placeholder.com/400x200/191970/000000"},
-        {id:9, title: "Product 10", price:"$ 21.30 USD", image:"https://via.placeholder.com/400x200/7B68EE/000000"},
+    const [products,setProducts] = useState([
+        {id:1, name: "Product 1",  price:"25.00", image:"https://via.placeholder.com/400x200/FFB6C1/000000", size : "S" , color : "green"},
+        {id:2, name: "Product 2",  price:"10.13", image:"https://via.placeholder.com/400x200/FA8072/000000", size : "M" , color : "red"},
+        {id:3, name: "Product 3",  price:"12.12", image:"https://via.placeholder.com/400x200/87CEEB/000000", size : "L" , color : "blue"},
+        {id:4, name: "Product 4",  price:"11.00", image:"https://via.placeholder.com/400x200/4682B4/000000", size : "XXL" , color : "orange"},
     ]);
+
+     const getProductFromApi = () => {
+        axios.get(`${API_URL}product`)
+           .then(res =>{
+               setProducts(res.data.result)
+           }).catch(err =>{
+           console.log(err)
+       })
+     }
 
         return (
             <View style={styles.container}>
                 <FlatList style={styles.list}
                           contentContainerStyle={styles.listContainer}
-                          data={data}
+                          data={products}
                           horizontal={false}
                           numColumns={2}
-                          keyExtractor= {(item) => {
-                              return item.id;
+                          keyExtractor= {(item,index) => {
+                              return index;
                           }}
                           ItemSeparatorComponent={() => {
                               return (
@@ -54,13 +57,21 @@ import {
                                   <View style={styles.card}>
 
                                       <View style={styles.cardHeader}>
-                                          <View>
-                                              <Text style={styles.title}>{item.title}</Text>
-                                              <Text style={styles.price}>{item.price}</Text>
+                                          <View style={{ flex :1,  flexDirection: 'row',
+                                              justifyContent: 'space-between'}}>
+                                             <View>
+                                                 <Text style={styles.title}>{item.name}</Text>
+                                                 <Text style={styles.price}>$ {item.price}</Text>
+                                             </View>
+                                             <View>
+                                                 {/*<Text></Text>*/}
+                                                 <Text style={styles.color}>Color : {item.color}</Text>
+                                             </View>
                                           </View>
                                       </View>
 
-                                      <Image style={styles.cardImage} source={{uri:item.image}}/>
+
+                                      <Image style={styles.cardImage} source={{uri: item.image  ? item.image : 'https://t3.ftcdn.net/jpg/00/36/94/26/360_F_36942622_9SUXpSuE5JlfxLFKB1jHu5Z07eVIWQ2W.jpg'}}/>
 
                                       <View style={styles.cardFooter}>
                                           <View style={styles.socialBarContainer}>
@@ -143,16 +154,27 @@ const styles = StyleSheet.create({
     },
     /******** card components **************/
     title:{
-        fontSize:18,
+        fontSize:20,
         flex:1,
     },
     price:{
         fontSize:16,
+        color: "tomato",
+        marginTop: 5
+    } ,
+    size:{
+        fontSize: 12,
         color: "green",
         marginTop: 5
     },
+    color:{
+        fontSize:12,
+        color: "orange",
+        marginTop: 40
+    },
     buyNow:{
         color: "purple",
+        marginLeft : 5
     },
     icon: {
         width:25,
