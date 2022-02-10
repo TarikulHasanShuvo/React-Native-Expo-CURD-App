@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Alert, Button, StyleSheet, TextInput, View} from "react-native";
+import {Button, StyleSheet, TextInput} from "react-native";
 import {Picker} from '@react-native-picker/picker';
+import {Card, Divider, Layout, Text} from '@ui-kitten/components';
 import axios from "axios";
 import {API_URL} from "@env";
 
@@ -12,19 +13,19 @@ const AddProduct = ({navigation}) => {
     const [price, setPrice] = useState("");
 
     const saveProductInApi = () => {
-        let data = { name, color, size, price };
-        axios.post(`${API_URL}product`,data)
-            .then(res=>{
+        let data = {name, color, size, price};
+        axios.post(`${API_URL}product`, data)
+            .then(res => {
                 navigation.navigate('Home')
                 //console.log(res)
             })
-            .catch(err=>{
+            .catch(err => {
                 console.log(err)
             })
     }
 
     return (
-        <View style={{padding: 10}}>
+        <Layout style={{padding: 10}}>
             <TextInput
                 style={styles.textInput}
                 placeholder="Name"
@@ -50,7 +51,7 @@ const AddProduct = ({navigation}) => {
                 onValueChange={(itemValue) => setSize(itemValue)}
                 placeholder="Pick a single language"
             >
-                <Picker.Item  disabled label="Size" value=""/>
+                <Picker.Item disabled label="Size" value=""/>
                 <Picker.Item label="S" value="S"/>
                 <Picker.Item label="M" value="M"/>
                 <Picker.Item label="L" value="L"/>
@@ -61,7 +62,19 @@ const AddProduct = ({navigation}) => {
                 title="Save Product"
                 onPress={() => saveProductInApi()}
             />
-        </View>
+            <Card>
+                <Text appearance='hint' status='success'>
+                    Hint Text.
+                </Text>
+                <Divider/>
+                <Text category='h6'>
+                    The Maldives, officially the Republic of Maldives, is a small country in South Asia,
+                    located in the Arabian Sea of the Indian Ocean.
+                    It lies southwest of Sri Lanka and India, about 1,000 kilometres (620 mi) from the Asian continent
+                </Text>
+
+            </Card>
+        </Layout>
     );
 };
 
@@ -83,7 +96,7 @@ const styles = StyleSheet.create({
         padding: 6,
         elevation: 10,
         marginBottom: 20,
-        height : 40
+        height: 40
 
     }
 })
