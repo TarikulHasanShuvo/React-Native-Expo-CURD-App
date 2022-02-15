@@ -43,7 +43,6 @@ const Test = () => {
         AsyncStorage.setItem('message', 'This a new warning message!')
     }, [])
 
-
     return (
         <>
             <Layout style={styles.topContainer} level='1'>

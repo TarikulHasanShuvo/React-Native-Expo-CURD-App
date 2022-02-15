@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import SingeTodo from "./SingeTodo";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
     container: {
@@ -22,7 +23,8 @@ const styles = StyleSheet.create({
     }
 });
 
-const TodoList = ({todoList,deleteTodo,editTodo}) => {
+const TodoList = ({deleteTodo,editTodo}) => {
+    const {todoList} = useSelector(state => state.todo)
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
