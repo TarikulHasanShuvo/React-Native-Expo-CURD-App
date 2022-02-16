@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React            from 'react';
 import 'react-native-gesture-handler';
-import * as eva from '@eva-design/eva';
+import * as eva              from '@eva-design/eva';
 import {ApplicationProvider} from '@ui-kitten/components';
-import store from './src/store/store'
-import {Provider} from 'react-redux'
-import TabNavigation from "./src/navigation/TabNavigation";
+import store                 from './src/store/store'
+import {Provider}            from 'react-redux'
+import TabNavigation         from "./src/navigation/TabNavigation";
 
 
 const App = () => {

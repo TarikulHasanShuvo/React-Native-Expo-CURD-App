@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState}                      from 'react';
 import {Button, Divider, Input, Layout, Text} from "@ui-kitten/components";
-import {Alert, StyleSheet} from "react-native";
-import {useDispatch} from "react-redux";
-import {makeAuthentication} from "../../store/reducers/authReducer";
+import {Alert, StyleSheet}                    from "react-native";
+import {useDispatch}                          from "react-redux";
+import {makeAuthentication}                   from "../../store/reducers/authReducer";
 
 const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail]       = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
+    const dispatch                = useDispatch();
 
     const login = () => {
         if (email !== "" && password !== "") {
@@ -50,20 +50,20 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex          : 1,
         justifyContent: 'center',
-        alignContent: 'center',
-        padding: 20,
+        alignContent  : 'center',
+        padding       : 20,
     },
-    input: {
-        marginTop: 10,
+    input    : {
+        marginTop      : 10,
         backgroundColor: '#fff'
     },
-    button: {
+    button   : {
         marginTop: 20
     },
-    text: {
-        textAlign: "center",
+    text     : {
+        textAlign   : "center",
         marginBottom: 10
     }
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React          from 'react';
 import {Layout, Text} from "@ui-kitten/components";
 
 const Profile = () => {

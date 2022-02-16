@@ -1,7 +1,7 @@
-import React, {forwardRef, useRef,useImperativeHandle, useState} from 'react';
-import {Alert, Button, TextInput, View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {addNewTodo, updateTodo} from '../store/reducers/todoReducer'
+import React, {forwardRef, useImperativeHandle, useRef, useState} from 'react';
+import {Alert, Button, TextInput, View}                           from 'react-native';
+import {useDispatch}                                              from 'react-redux';
+import {addNewTodo, updateTodo}                                   from '../store/reducers/todoReducer'
 
 const AddTodo = ({},ref) => {
     const ref_input = useRef();
