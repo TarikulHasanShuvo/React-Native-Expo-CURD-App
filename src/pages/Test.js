@@ -19,7 +19,6 @@ const showMessage = () => {
     AsyncStorage.getItem('message').then(res => {
         Alert.alert(`${res}`);
     })
-
 }
 
 const Footer = (props) => (
