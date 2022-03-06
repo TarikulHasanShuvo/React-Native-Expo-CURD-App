@@ -6,8 +6,6 @@ import {FACEBOOK_API_APP_KEY} from "@env";
 
 const Profile = () => {
     const [userInfo, setUserInfo] = useState({});
-
-
     async function logIn() {
         try {
             await Facebook.initializeAsync({
@@ -35,7 +33,6 @@ const Profile = () => {
             <Text>Profile</Text>
             <Button onPress={logIn}>Login With Facebook</Button>
             <Button style={{ marginTop : 30}} onPress={() => Alert.alert('User Information',JSON.stringify(userInfo))}>Show Info</Button>
-
         </Layout>
     );
 };

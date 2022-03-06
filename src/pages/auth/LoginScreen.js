@@ -3,21 +3,32 @@ import {Button, Divider, Input, Layout, Text} from "@ui-kitten/components";
 import {Alert, StyleSheet}                    from "react-native";
 import {useDispatch}                          from "react-redux";
 import {makeAuthentication}                   from "../../store/reducers/authReducer";
-
+import { useValidation } from 'react-native-form-validator';
+import customValidationMessages from "../../components/customValidationMessages";
 const LoginScreen = ({navigation}) => {
     const [email, setEmail]       = useState('');
     const [password, setPassword] = useState('');
     const dispatch                = useDispatch();
 
+    const { validate, isFieldInError, getErrorsInField, getErrorMessages } = useValidation({
+        state: { email, password },
+        messages: customValidationMessages,
+        deviceLocale : "bn",
+
+    });
     const login = () => {
-        if (email !== "" && password !== "") {
-            dispatch(makeAuthentication())
-            setTimeout(() => {
-                navigation.navigate('Home')
-            }, 500)
-        } else {
-            Alert.alert('Warning !', 'Please fill Email & Password.')
-        }
+            validate({
+                email: { email: true },
+                password: { required: true }
+            })
+        // if (email !== "" && password !== "") {
+        //     dispatch(makeAuthentication())
+        //     setTimeout(() => {
+        //         navigation.navigate('Home')
+        //     }, 500)
+        // } else {
+        //     Alert.alert('Warning !', 'Please fill Email & Password.')
+        // }
     }
     return (
         <Layout style={styles.container}>
@@ -30,6 +41,10 @@ const LoginScreen = ({navigation}) => {
                 value={email}
                 onChangeText={nextValue => setEmail(nextValue)}
             />
+            {isFieldInError('email') &&
+            getErrorsInField('email').map(errorMessage => (
+                <Text>{errorMessage}</Text>
+            ))}
             <Input
                 style={styles.input}
                 placeholder='Password'
@@ -41,7 +56,7 @@ const LoginScreen = ({navigation}) => {
                 Login
             </Button>
 
-
+            <Text>{getErrorMessages()}</Text>
         </Layout>
     );
 };
